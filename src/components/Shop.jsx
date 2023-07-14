@@ -3,12 +3,14 @@ import axios from "axios";
 import { API_KEY, API_URL } from "../config";
 import { Preloader } from "./Preloader";
 import { GoodsList } from "./GoodsList";
-import { Cart } from "./Cart";
+import { Cart } from "./cart/Cart";
+import { CartList } from "./cart/CartList";
 
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
+  const [isCartShow, setCartShow] = useState(false);
 
   const addToCart = (item) => {
     const itemIndex = order.findIndex(
@@ -37,6 +39,10 @@ export const Shop = () => {
     }
   };
 
+  const handleCartShow = () => {
+    setCartShow(!isCartShow);
+  };
+
   useEffect(function getGoods() {
     axios
       .get(API_URL, {
@@ -53,12 +59,13 @@ export const Shop = () => {
 
   return (
     <main className="container content">
-      <Cart quantity={order.length} />
+      <Cart quantity={order.length} handleCartShow={handleCartShow} />
       {loading ? (
         <Preloader />
       ) : (
         <GoodsList goods={goods} addToCart={addToCart} />
       )}
+      {isCartShow && <CartList order={order} />}
     </main>
   );
 };
