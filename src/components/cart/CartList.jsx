@@ -8,7 +8,7 @@ export const CartList = (props) => {
       <li className="collection-item active">Корзина:</li>
       {order.length ? (
         order.map((item) => {
-          <CartItem key={item.id} {...item} />;
+          return <CartItem key={item.id} {...item} />;
         })
       ) : (
         <li href="#!" className="collection-item">

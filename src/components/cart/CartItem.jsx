@@ -3,6 +3,8 @@ import React from "react";
 export const CartItem = (props) => {
   const { mainId, displayName, price, quantity } = props;
 
+  console.log(props);
+
   return (
     <li className="collection-item">
       {displayName} x {quantity} = {price}
