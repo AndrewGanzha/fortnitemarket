@@ -5,12 +5,14 @@ import { Preloader } from "./Preloader";
 import { GoodsList } from "./GoodsList";
 import { Cart } from "./cart/Cart";
 import { CartList } from "./cart/CartList";
+import { Alert } from "./Alert";
 
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
   const [isCartShow, setCartShow] = useState(false);
+  const [alertName, setAlertName] = useState("");
 
   const addToCart = (item) => {
     const itemIndex = order.findIndex(
@@ -37,6 +39,7 @@ export const Shop = () => {
 
       setOrder(newOrder);
     }
+    setAlertName(item.displayName);
   };
 
   const removeFromCart = (itemId) => {
@@ -80,6 +83,10 @@ export const Shop = () => {
     setCartShow(!isCartShow);
   };
 
+  const closeAlert = () => {
+    setAlertName("");
+  };
+
   useEffect(function getGoods() {
     axios
       .get(API_URL, {
@@ -111,6 +118,7 @@ export const Shop = () => {
           removeQuantity={removeQuantity}
         />
       )}
+      {alertName && <Alert name={alertName} closeAlert={closeAlert} />}
     </main>
   );
 };
