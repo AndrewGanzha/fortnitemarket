@@ -61,6 +61,8 @@ nav {
   background-color: #fff;
   width: 50rem;
   max-width: 95%;
+
+  animation: show 500ms ease-in-out;
 }
 
 .basket-close {
@@ -71,6 +73,25 @@ nav {
   color: #fff;
 }
 
+.basket-add {
+  cursor: pointer;
+}
+
+.basket-remove {
+  cursor: pointer;
+}
+
 .basket-delete {
   cursor: pointer;
+}
+
+@keyframes show {
+  from {
+    top: 70%;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
 }

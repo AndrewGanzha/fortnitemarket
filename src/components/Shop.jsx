@@ -39,6 +39,43 @@ export const Shop = () => {
     }
   };
 
+  const removeFromCart = (itemId) => {
+    const newOrder = order.filter((el) => el.mainId !== itemId);
+    setOrder(newOrder);
+  };
+
+  const addQuantity = (itemId) => {
+    const newOrder = order.map((el) => {
+      if (el.mainId === itemId) {
+        const newQuantity = el.quantity + 1;
+        return {
+          ...el,
+          quantity: newQuantity >= 0 ? newQuantity : 0,
+        };
+      } else {
+        return el;
+      }
+    });
+
+    setOrder(newOrder);
+  };
+
+  const removeQuantity = (itemId) => {
+    const newOrder = order.map((el) => {
+      if (el.mainId === itemId) {
+        const newQuantity = el.quantity - 1;
+        return {
+          ...el,
+          quantity: newQuantity >= 0 ? newQuantity : 0,
+        };
+      } else {
+        return el;
+      }
+    });
+
+    setOrder(newOrder);
+  };
+
   const handleCartShow = () => {
     setCartShow(!isCartShow);
   };
@@ -65,7 +102,15 @@ export const Shop = () => {
       ) : (
         <GoodsList goods={goods} addToCart={addToCart} />
       )}
-      {isCartShow && <CartList order={order} handleCartShow={handleCartShow} />}
+      {isCartShow && (
+        <CartList
+          order={order}
+          handleCartShow={handleCartShow}
+          removeFromCart={removeFromCart}
+          addQuantity={addQuantity}
+          removeQuantity={removeQuantity}
+        />
+      )}
     </main>
   );
 };
