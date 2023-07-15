@@ -95,3 +95,7 @@ nav {
     opacity: 1;
   }
 }
+
+#toast-container {
+  top: 3rem !important;
+}
